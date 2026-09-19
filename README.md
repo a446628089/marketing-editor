@@ -113,6 +113,10 @@ pnpm stop
 
 Webpack 开发服务将 `/api` 代理到 `http://localhost:8081`。
 
+### 端口配置
+
+开发进程配置位于 `ecosystem.config.js`。后端通过 `PORT` 指定监听端口，前端通过 `API_TARGET` 指定接口代理目标；调整后端端口时需同步修改代理目标。前端开发端口在 `package/client/build/webpack.dev.js` 中配置，默认值为 8080。
+
 ### 构建
 
 ```powershell
@@ -123,16 +127,6 @@ pnpm start
 `build:all` 使用跨平台清理脚本，再依次构建前后端，产物位于 `output/`。`pnpm start` 在当前终端启动生产服务，通过 [http://localhost:8081](http://localhost:8081) 同时访问页面与接口，按 `Ctrl+C` 停止；启动前先停止开发服务，避免端口冲突。
 
 构建包含前后端类型检查，也可用 `pnpm typecheck` 单独检查。Webpack 的资源体积警告不影响构建产物生成或服务启动。
-
-## 使用说明
-
-### 端口配置
-
-开发进程配置位于 `ecosystem.config.js`。后端通过 `PORT` 指定监听端口，前端通过 `API_TARGET` 指定接口代理目标；调整后端端口时需同步修改代理目标。前端开发端口在 `package/client/build/webpack.dev.js` 中配置，默认值为 8080。
-
-### 页面保存
-
-开发模式下页面保存到 `package/server/data/editor-schema.json`；生产模式保存到 `output/data/editor-schema.json`，重新构建会清理 `output/`，需要保留的页面请先导出 JSON。两者均属于本地运行数据，不提交到仓库。尚未保存页面时，Schema 接口返回 `schema: null`；保存接口会创建所需目录及文件。
 
 ## 项目结构
 
@@ -150,6 +144,20 @@ pnpm start
 ├── scripts/              # 开发辅助脚本
 └── ecosystem.config.js   # PM2 开发进程配置
 ```
+
+## 使用说明
+
+### 保存、恢复与导出
+
+- **保存 Schema**：将当前页面写入后端，覆盖上一次保存的内容。
+- **恢复 Schema**：从后端重新加载最近保存的页面，替换当前编辑内容；尚未保存的修改请先保存或导出。
+- **导出 JSON**：将当前页面 Schema 下载为本地文件，用于备份。恢复按钮读取后端保存的数据，不会读取下载的 JSON 文件。
+
+### 数据保存位置
+
+开发模式下页面保存到 `package/server/data/editor-schema.json`；生产模式保存到 `output/data/editor-schema.json`，两种模式的数据分别保存，均不提交到仓库。尚未保存页面时，Schema 接口返回 `schema: null`；保存接口会创建所需目录及文件。
+
+**重新构建会清理 `output/`，包括生产模式保存的页面数据。** 构建前请先导出需要保留的页面 JSON。
 
 ## License
 
