@@ -80,7 +80,7 @@ cd marketing-editor
 pnpm install --frozen-lockfile
 ```
 
-仓库当前为私有，克隆时需要具有访问权限的 GitHub 账号。项目级 `.npmrc` 使用 npm 官方源，不修改本机全局配置。
+项目级 `.npmrc` 使用 npm 官方源，不修改本机全局配置。
 
 内存不足时，可在 PowerShell 中降低安装并发后重试：
 
