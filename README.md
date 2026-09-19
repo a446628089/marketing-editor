@@ -66,8 +66,8 @@ flowchart TD
 ### 环境要求
 
 - Node.js 22（本地验证版本为 22.20.0）
-- pnpm（用于按锁文件安装依赖）
-- PM2（用于管理前后端开发进程）
+- pnpm 10.20.0（已在 `packageManager` 中固定）
+- PM2 随项目依赖安装，无需全局安装
 
 ### 获取项目与安装依赖（Windows PowerShell）
 
@@ -76,24 +76,32 @@ git clone https://github.com/a446628089/marketing-editor.git
 cd marketing-editor
 
 pnpm install --frozen-lockfile
-npm install -g pm2
 ```
 
-仓库当前为私有，克隆时需要具有访问权限的 GitHub 账号。已安装 PM2 时可跳过全局安装步骤。
+仓库当前为私有，克隆时需要具有访问权限的 GitHub 账号。项目级 `.npmrc` 使用 npm 官方源，不修改本机全局配置。
+
+内存不足时，可在 PowerShell 中降低安装并发后重试：
+
+```powershell
+$env:PNPM_MAX_WORKERS = "1"
+pnpm install --frozen-lockfile --network-concurrency=4 --child-concurrency=1 --package-import-method=copy
+```
 
 ### 本地启动
 
 在仓库根目录执行：
 
 ```powershell
-npm run dev
+pnpm dev
 ```
 
 PM2 会在后台启动前端 8080 与后端 8081，关闭终端不会自动停止服务。启动前应确保两个端口可用；结束开发时执行：
 
 ```powershell
-npm run stop
+pnpm stop
 ```
+
+如需在当前终端运行前后端，可使用 `pnpm dev:all`；不要与后台模式同时占用相同端口。
 
 ### 访问地址
 
@@ -106,17 +114,17 @@ Webpack 开发服务将 `/api` 代理到 `http://localhost:8081`。
 ### 构建
 
 ```powershell
-npm run build:client
-npm run build:server
+pnpm build:all
+pnpm start
 ```
 
-构建产物位于 `output/`。Windows 下分别执行前后端构建，避免依赖 `build:all` 中的 Unix 清理命令；当前后端构建限制见“当前边界”。
+`build:all` 使用跨平台清理脚本，再依次构建前后端，产物位于 `output/`。`pnpm start` 在当前终端启动生产服务，通过 [http://localhost:8081](http://localhost:8081) 同时访问页面与接口，按 `Ctrl+C` 停止；启动前先停止开发服务，避免端口冲突。
 
 ## 配置说明
 
 开发进程配置位于 `ecosystem.config.js`。后端通过 `PORT` 指定监听端口，前端通过 `API_TARGET` 指定接口代理目标；调整后端端口时需同步修改代理目标。前端开发端口在 `package/client/build/webpack.dev.js` 中配置，默认值为 8080。
 
-页面保存后写入 `package/server/data/editor-schema.json`，该文件属于本地运行数据，不提交到仓库。尚未保存页面时，Schema 接口返回 `schema: null`；保存接口会创建所需目录及文件。
+开发模式下页面保存到 `package/server/data/editor-schema.json`；生产模式保存到 `output/data/editor-schema.json`，重新构建会清理 `output/`，需要保留的页面请先导出 JSON。两者均属于本地运行数据，不提交到仓库。尚未保存页面时，Schema 接口返回 `schema: null`；保存接口会创建所需目录及文件。
 
 ## 项目结构
 
@@ -137,13 +145,12 @@ npm run build:server
 
 ## 当前边界
 
-以下为 2026-09-19 在 Windows、Node.js 22.20.0 下的验证结果；构建与启动使用本机原有依赖，未进行完整交互回归。
+2026-09-19 在 Windows、Node.js 22.20.0 下验证：
 
-- 前端构建通过，Webpack 提示入口与资源体积超过建议值。
-- 后端构建未通过：TypeScript 4.9.5 与 `@types/node` 25.6.0 的声明不兼容，出现 `Disposable`、`Symbol.dispose` 等类型错误。
-- 独立目录的全新安装未完成：锁文件中的 `registry.npmmirror.com` 下载出现连接错误。
-- 开发启动检查通过：编辑器页面、后端 `/api`、`/api/schema` 及前端 `/api` 代理均返回 HTTP 200。
-- 本机 pnpm 11 对旧依赖目录触发重装确认，因此启动和构建通过 `npm run` 执行现有脚本。
+- 独立目录按冻结锁文件完成安装，使用低并发、复制模式并复用本机包缓存。
+- 完整前后端构建与类型检查通过；前端构建先执行类型检查，后端禁止类型错误时输出产物。可用 `pnpm typecheck` 单独检查。
+- 开发及生产模式的页面、JS/CSS 资源、接口、Schema 保存与恢复检查通过；未进行完整交互回归。
+- 前端仍有 Webpack 资源体积警告，不影响启动，后续可单独进行按需加载优化。
 - Command Pattern 部分介绍历史管理设计方案，本轮未对其实现完整性进行核验。
 
 ## License

@@ -1,7 +1,12 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "rootDir": ".",
     "outDir": "../../output",
+    "target": "ES2022",
+    "lib": ["ES2022", "ESNext.Disposable"],
+    "types": ["node"],
+    "noEmitOnError": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
   },

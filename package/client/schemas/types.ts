@@ -51,14 +51,16 @@ export type ComponentPropsMap = {
   container: ContainerProps;
 };
 
-export interface EditorNodeEntity<T extends ComponentType = ComponentType> {
-  id: string;
-  type: T;
-  name: string;
-  parentId: string | null;
-  children: string[];
-  props: ComponentPropsMap[T];
-}
+export type EditorNodeEntity<T extends ComponentType = ComponentType> = {
+  [K in T]: {
+    id: string;
+    type: K;
+    name: string;
+    parentId: string | null;
+    children: string[];
+    props: ComponentPropsMap[K];
+  };
+}[T];
 
 export interface ComponentsState {
   rootIds: string[];
