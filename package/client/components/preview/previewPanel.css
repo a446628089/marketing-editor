@@ -1,0 +1,49 @@
+.preview-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.preview-panel__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.preview-panel__badge {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #16a34a;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.preview-phone {
+  width: 100%;
+  margin-top: 18px;
+  border-radius: 28px;
+  background: #0f172a;
+  padding: 12px;
+  box-sizing: border-box;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+}
+
+.preview-phone__header {
+  height: 28px;
+  border-radius: 16px 16px 10px 10px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 12px;
+  text-align: center;
+  line-height: 28px;
+}
+
+.preview-phone__body {
+  display: grid;
+  gap: 14px;
+  min-height: 520px;
+  padding: 14px;
+  border-radius: 22px;
+  background: #ffffff;
+}

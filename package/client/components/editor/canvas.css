@@ -1,0 +1,129 @@
+.canvas-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.canvas-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.canvas-header__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.canvas-header__desc {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.7;
+}
+
+.canvas-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.canvas-chip {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.canvas-header__button {
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid #dbeafe;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #2563eb;
+  cursor: pointer;
+}
+
+.canvas-surface {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 14px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #eef4ff, #f8fafc);
+  border: 1px solid #dbeafe;
+}
+
+.canvas-surface__ruler {
+  margin-bottom: 12px;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.canvas-root {
+  flex: 1;
+  overflow: auto;
+  padding: 20px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #ffffff, #f8fafc);
+  border: 1px solid #e2e8f0;
+  display: grid;
+  gap: 12px;
+}
+
+.canvas-root.is-over {
+  outline: 2px dashed rgba(22, 119, 255, 0.4);
+  outline-offset: 6px;
+}
+
+.canvas-node-shell {
+  display: grid;
+  gap: 10px;
+}
+
+.canvas-node-shell.is-dragging {
+  opacity: 0.55;
+}
+
+.canvas-drop-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  border-radius: 14px;
+  border: 1px dashed rgba(148, 163, 184, 0.7);
+  background: rgba(248, 250, 252, 0.9);
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.18s ease;
+}
+
+.canvas-drop-slot span {
+  pointer-events: none;
+}
+
+.canvas-drop-slot.is-over {
+  border-color: #1677ff;
+  background: rgba(219, 234, 254, 0.9);
+  color: #1677ff;
+  box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.12);
+}
+
+.canvas-drop-slot.is-compact {
+  min-height: 26px;
+  border-style: solid;
+  background: rgba(239, 246, 255, 0.58);
+}
+
+.canvas-drop-slot--inside {
+  margin-bottom: 4px;
+}

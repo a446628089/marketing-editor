@@ -1,0 +1,148 @@
+.editor-node {
+  position: relative;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.editor-node:hover {
+  border-color: rgba(59, 130, 246, 0.55);
+  transform: translateY(-1px);
+}
+
+.editor-node.is-selected {
+  border-color: #1677ff;
+  box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.14);
+}
+
+.editor-node.is-preview {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.editor-node__label {
+  position: absolute;
+  top: -11px;
+  left: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #1677ff;
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.editor-node--container {
+  min-height: 90px;
+  border-style: dashed;
+}
+
+.node-banner {
+  padding: 32px 24px;
+  border-radius: 16px;
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
+}
+
+.node-banner__title {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.node-banner__desc {
+  margin-top: 12px;
+  max-width: 460px;
+  font-size: 15px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.node-text {
+  padding: 20px;
+  line-height: 1.8;
+}
+
+.node-form {
+  padding: 20px;
+}
+
+.node-form__title {
+  margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.node-form__fields {
+  display: grid;
+  gap: 12px;
+}
+
+.node-form__field {
+  display: grid;
+  gap: 6px;
+}
+
+.node-form__field label {
+  font-size: 13px;
+  color: #475569;
+}
+
+.node-form__field input {
+  height: 38px;
+  border: 1px solid #dbe3ef;
+  border-radius: 10px;
+  padding: 0 12px;
+  background: #f8fafc;
+}
+
+.node-form__button {
+  margin-top: 14px;
+  width: 100%;
+  height: 40px;
+  border: 0;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #1677ff, #7c3aed);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.node-card {
+  padding: 20px;
+}
+
+.node-card__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.node-card__subtitle {
+  margin-top: 8px;
+  color: #64748b;
+}
+
+.node-card__price {
+  margin-top: 16px;
+  color: #ef4444;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.node-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.node-card__tag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 12px;
+}
