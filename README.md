@@ -4,6 +4,26 @@
 
 前端使用 **React 18 + TypeScript** 构建物料面板、编辑画布、属性面板与预览界面，通过 **Redux Toolkit + dnd-kit + Hotkeys** 组织编辑状态与交互；后端使用 **Koa** 提供页面 Schema 的保存与恢复接口。
 
+## 项目预览
+
+### 编辑器全貌
+
+![编辑器全貌](docs/images/editor-overview.png)
+
+顶部项目名称与快捷操作、左侧物料中心、中间拖拽画布与右侧属性配置同屏协作，选中 Banner 后即可直接编辑其文案与视觉样式。
+
+### 表单配置
+
+![表单配置](docs/images/form-configuration.png)
+
+画布中的预约表单与右侧字段配置联动，姓名、手机号、意向户型等字段的字段名称、占位文案、字段类型与必填状态均可动态调整。
+
+### 实时预览
+
+![实时预览](docs/images/live-preview.png)
+
+编辑态与预览态共用同一份页面 Schema，配置变更即时同步为 Banner、房源卡片与预约表单的最终展示效果。
+
 ## 核心亮点
 
 ### Schema 驱动与组件协议
